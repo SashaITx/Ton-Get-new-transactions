@@ -34,7 +34,6 @@ func main() {
 	listTx := make([]*tlb.Transaction, 2, 2)
 
 	for i := 0; ; i++ {
-		fmt.Printf("Request No %v", i)
 
 		// Нужно спарсить текущее состояние матерчейна для использования гет методов применительно к конкретному адресу.
 		master, err := api.CurrentMasterchainInfo(context.Background())
@@ -69,6 +68,8 @@ func main() {
 		} else {
 			listTx[1] = lastTransaction[0]
 		}
+
+		fmt.Printf("Request No %d\n", i)
 
 		// Далее сравним две последние транзакции аккаунта. Если одинаковые значит новых транзакций нет - ждем и продолжаем запрашивать информацию.
 		if bytes.Equal(listTx[0].Hash, listTx[1].Hash) {
